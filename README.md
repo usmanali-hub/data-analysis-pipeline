@@ -36,6 +36,10 @@ query = np.array([[1.0, 0.05]])
 print(top_k_indices(cosine_similarity(query, docs)[0], k=2))   # [0 2]
 ```
 
+### Notebook
+
+[`notebooks/01_numpy_vectorization.ipynb`](notebooks/01_numpy_vectorization.ipynb) walks through broadcasting, a loop-vs-vectorized distance benchmark, a small embedding-retrieval example and softmax stability, with outputs saved.
+
 ## Design notes
 
 - **Edge cases are explicit.** Zero variance, zero-length vectors, empty labels and overflow-prone logits all have defined, tested behavior.
