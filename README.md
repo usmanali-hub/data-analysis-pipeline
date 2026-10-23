@@ -36,6 +36,19 @@ query = np.array([[1.0, 0.05]])
 print(top_k_indices(cosine_similarity(query, docs)[0], k=2))   # [0 2]
 ```
 
+### `datapipe.cleaning`
+
+Small pandas steps that each take and return a DataFrame, chained with `.pipe`:
+
+| Function | Purpose |
+|---|---|
+| `normalize_columns`, `snake_case` | `' Amount ($) '` becomes `amount` |
+| `strip_text` | Trim and collapse whitespace in every text column |
+| `parse_money` | `'$1,234.50'` becomes `1234.5`; `'N/A'` stays missing instead of becoming zero |
+| `parse_mixed_dates` | Tries explicit formats in turn, so day/month order is never guessed per row |
+| `standardize_categories` | `'KUWAIT'`, `'kuwait '` and `'Kuwait'` collapse to one label; unknown values are kept |
+| `clean_orders` | The full pipeline, tested end to end on `make_messy_orders()` |
+
 ### Notebook
 
 [`notebooks/01_numpy_vectorization.ipynb`](notebooks/01_numpy_vectorization.ipynb) walks through broadcasting, a loop-vs-vectorized distance benchmark, a small embedding-retrieval example and softmax stability, with outputs saved.
@@ -47,4 +60,4 @@ print(top_k_indices(cosine_similarity(query, docs)[0], k=2))   # [0 2]
 
 ## Next
 
-pandas cleaning, aggregation and feature engineering on a messy synthetic dataset, combined into one reproducible pipeline script.
+aggregation and feature engineering on the cleaned orders, then everything combined into one reproducible pipeline script.
