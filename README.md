@@ -49,6 +49,20 @@ Small pandas steps that each take and return a DataFrame, chained with `.pipe`:
 | `standardize_categories` | `'KUWAIT'`, `'kuwait '` and `'Kuwait'` collapse to one label; unknown values are kept |
 | `clean_orders` | The full pipeline, tested end to end on `make_messy_orders()` |
 
+### `datapipe.aggregation`
+
+Group, join, pivot and window steps for cleaned orders:
+
+| Function | Purpose |
+|---|---|
+| `summarize_by` | Orders, revenue and average order value per group, with named aggregation |
+| `enrich_with_customers` | Left join with `validate="many_to_one"` so duplicate keys raise instead of multiplying rows; unmatched orders are flagged |
+| `monthly_revenue_pivot` | Country by month revenue with totals |
+| `add_window_features` | Daily revenue resampled to a full calendar, rolling sum, cumulative sum and share of total |
+| `top_n_per_group` | Largest n rows per group, ranked |
+
+Expected values in the tests are computed by hand on a five-row frame, not by re-running the same pandas call.
+
 ### Notebook
 
 [`notebooks/01_numpy_vectorization.ipynb`](notebooks/01_numpy_vectorization.ipynb) walks through broadcasting, a loop-vs-vectorized distance benchmark, a small embedding-retrieval example and softmax stability, with outputs saved.
@@ -60,4 +74,4 @@ Small pandas steps that each take and return a DataFrame, chained with `.pipe`:
 
 ## Next
 
-aggregation and feature engineering on the cleaned orders, then everything combined into one reproducible pipeline script.
+feature engineering on the cleaned orders, then everything combined into one reproducible pipeline script.
