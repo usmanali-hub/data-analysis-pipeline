@@ -87,4 +87,4 @@ Feature engineering that never reads the future:
 
 ## Next
 
-one reproducible pipeline script that runs cleaning, aggregation and features end to end and writes a report with charts.
+A reproducible pipeline script that runs cleaning, aggregation and features end to end and writes a report with charts.
