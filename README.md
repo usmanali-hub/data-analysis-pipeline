@@ -63,9 +63,22 @@ Group, join, pivot and window steps for cleaned orders:
 
 Expected values in the tests are computed by hand on a five-row frame, not by re-running the same pandas call.
 
-### Notebook
+### `datapipe.features`
 
-[`notebooks/01_numpy_vectorization.ipynb`](notebooks/01_numpy_vectorization.ipynb) walks through broadcasting, a loop-vs-vectorized distance benchmark, a small embedding-retrieval example and softmax stability, with outputs saved.
+Feature engineering that never reads the future:
+
+| Function | Purpose |
+|---|---|
+| `add_date_features` | Month, weekday, weekend flag, ISO week |
+| `add_history_features` | Previous amount, days since the previous order and order number, per customer in date order |
+| `customer_rfm` | Recency, frequency and monetary value as of a cut-off date; later orders are ignored |
+| `frequency_encode` | Category replaced by its relative frequency |
+| `bucket_amount` | Quantile buckets that survive ties and keep missing values missing |
+
+### Notebooks
+
+- [`01_numpy_vectorization.ipynb`](notebooks/01_numpy_vectorization.ipynb): broadcasting, a loop-vs-vectorized distance benchmark, a small embedding-retrieval example and softmax stability, with outputs saved.
+- [`02_clean_aggregate_features.ipynb`](notebooks/02_clean_aggregate_features.ipynb): the whole pandas flow on one synthetic table. Messy orders are cleaned, aggregated and joined, then turned into features, with two charts and outputs saved.
 
 ## Design notes
 
@@ -74,4 +87,4 @@ Expected values in the tests are computed by hand on a five-row frame, not by re
 
 ## Next
 
-feature engineering on the cleaned orders, then everything combined into one reproducible pipeline script.
+one reproducible pipeline script that runs cleaning, aggregation and features end to end and writes a report with charts.
