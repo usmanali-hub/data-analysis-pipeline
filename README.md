@@ -85,6 +85,19 @@ Feature engineering that never reads the future:
 - **Edge cases are explicit.** Zero variance, zero-length vectors, empty labels and overflow-prone logits all have defined, tested behavior.
 - **Tests compare against loops.** A vectorized function that returns different numbers from the obvious loop is a bug, however fast it is.
 
-## Next
+## Run the whole pipeline
 
-A reproducible pipeline script that runs cleaning, aggregation and features end to end and writes a report with charts.
+```bash
+PYTHONPATH=src python -m datapipe --out reports
+```
+
+One command generates a synthetic messy orders table, cleans it, joins customers, aggregates, builds features and writes everything to `reports/`: cleaned CSVs, a Markdown [report](reports/report.md) with data-quality counts and revenue tables, and three charts. Output is deterministic for a given `--seed`, and a test checks that two runs write identical files.
+
+![Revenue trend](reports/revenue_trend.png)
+
+<p>
+<img src="reports/revenue_by_country.png" width="48%" alt="Revenue by country">
+<img src="reports/value_buckets.png" width="48%" alt="Spend by customer value bucket">
+</p>
+
+The 7-day average line starts on day 7, because the first six days have a partial window that would understate it. Orders with no country are kept and shown as `(unknown)` rather than dropped.
