@@ -19,6 +19,8 @@ jobs:
       - run: pytest
       - name: Run the pipeline
         run: PYTHONPATH=src python -m datapipe --out "$RUNNER_TEMP/reports"
+      - name: Run the weather analysis
+        run: PYTHONPATH=src python -m datapipe.weather --out "$RUNNER_TEMP/weather"
       - name: Execute notebooks
         run: |
           pip install nbconvert ipykernel

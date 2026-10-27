@@ -101,3 +101,15 @@ One command generates a synthetic messy orders table, cleans it, joins customers
 </p>
 
 The 7-day average line starts on day 7, because the first six days have a partial window that would understate it. Orders with no country are kept and shown as `(unknown)` rather than dropped.
+
+## Real data: Seattle weather
+
+The orders pipeline runs on synthetic data. To show the same toolkit on real observations, `datapipe.weather` analyses 1,461 days of NOAA weather (see [`data/README.md`](data/README.md) for the source):
+
+```bash
+PYTHONPATH=src python -m datapipe.weather --out reports
+```
+
+It validates the file on load, then writes [`reports/weather_findings.md`](reports/weather_findings.md) and three charts. Every number in the findings is computed from the data and cross-checked in tests against plain-Python loops. For example, November is the wettest month at about 161 mm per year, July the driest at about 12 mm, and the longest dry spell was 48 days. The report also says what the data cannot show: four years of data is too short to call a temperature rise a climate trend.
+
+![Rainfall by month](reports/weather_rainfall_by_month.png)
